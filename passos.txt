@@ -1,0 +1,10 @@
+Configurando o GIT:
+git config --global user.name lucasSouza225
+git config --global user.email lucas2469y@gmail.com
+
+Criando um projeto MVC
+dotnet new mvc -o Blog
+
+Executar
+cd Blog
+dotnet watch run
