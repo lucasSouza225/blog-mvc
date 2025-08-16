@@ -98,11 +98,16 @@ public class HomeController : Controller
         return View(postagens);
     }
 
-    public IActionResult Privacy()
+    public IActionResult Postagem(int id)
     {
         return View();
     }
 
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

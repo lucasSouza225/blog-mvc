@@ -4,14 +4,40 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Blog</h1>
-    <p>Confira aqui <aside> últimas nóticias e novidade do mundo!!</aside></p>
+<div class="p-5 mb-4 bg-secondary rounded-3 text-center text-white">
+    <h1 class="display-3 fw-bold">Blog</h1>
+    <p class="fs-3">Confira aqui
+    <aside> últimas nóticias e novidade do mundo!!</aside>
+    </p>
 </div>
 
-@foreach (Postagem postagem in Model )
-{
-    <h2>@postagem.Nome</h2>
-    <p>@postagem.Descricao</p>
-    <img src="@postagem.Foto" width="200"/> 
-}
+<div class="container pb-5">
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        @foreach (Postagem postagem in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="row h-100 g-0">
+                        <div class="col-md-4">
+                            <img src="@postagem.Thumbnail" class="img-fluid rounded-start h-100 object-fit-cover"
+                                alt="@postagem.Nome">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <button class="btn btn-sm btn-dark text-white mb-5">@postagem.Categoria.Nome</button>
+                                <h5 class="card-title mb-3">@postagem.Nome</h5>
+                                <p class="card-text mb-3">@postagem.Descricao</p>
+                                <p class="card-text d-flex justify-content-between mb-3">
+                                    <small class="text-body-secondary">
+                                        Postado em: @postagem.DataPostagem.ToString("dd/MM/yyyy hh:mm")
+                                    </small>
+                                    <a asp-action="Postagem" asp-route-id="@postagem.Id" class="btn btn-outline-primary">Ler Mais</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
