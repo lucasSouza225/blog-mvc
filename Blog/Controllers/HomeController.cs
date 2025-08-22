@@ -8,26 +8,27 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
+    // Tornei a lista um campo da classe para ser usada em ambos os métodos
+    private readonly List<Postagem> postagens;
+
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        ViewData["Mensagem"] = "Olá, mundo!";
 
         Categoria anime = new();
         anime.Id = 1;
         anime.Nome = "Anime";
 
-        Categoria filme = new() {
+        Categoria filme = new()
+        {
             Id = 2,
             Nome = "Filme"
         };
 
-        List<Postagem> postagens = [
-            new() {
+        postagens = new List<Postagem>
+        {
+            new()
+            {
                 Id = 1,
                 Nome = "Demon Slayer: Kimetsu no Yaiba : Castelo Infinito",
                 CategoriaId = 2,
@@ -38,7 +39,8 @@ public class HomeController : Controller
                 Thumbnail = "/img/1.jpg",
                 Foto = "/img/1.jpg"
             },
-             new() {
+            new()
+            {
                 Id = 2,
                 Nome = "Black Clover - A Espada do Rei Mago",
                 CategoriaId = 2,
@@ -48,8 +50,9 @@ public class HomeController : Controller
                 Texto = "O filme Black Clover: A Espada do Rei Mago narra uma história original que se passa entre o Arco da Reencarnação dos Elfos e o Arco da Luta Conjunta do Reino Heart. A trama central gira em torno de Conrad Leto, o 27º Rei Mago, que foi banido e retorna com o objetivo de destruir o Reino Clover, revivendo três outros Reis Magos com a Espada Imperial. Asta e os Cavaleiros Mágicos precisam unir forças para impedir a ameaça e proteger o reino.",
                 Thumbnail = "/img/2.jpg",
                 Foto = "/img/2.jpg"
-            }, 
-            new() {
+            },
+            new()
+            {
                 Id = 3,
                 Nome = "Kaiju No. 8",
                 CategoriaId = 1,
@@ -60,7 +63,8 @@ public class HomeController : Controller
                 Thumbnail = "/img/3.jpg",
                 Foto = "/img/3.jpg"
             },
-            new() {
+            new()
+            {
                 Id = 4,
                 Nome = "Clevatess",
                 CategoriaId = 1,
@@ -71,7 +75,8 @@ public class HomeController : Controller
                 Thumbnail = "/img/4.jpg",
                 Foto = "/img/4.jpg"
             },
-            new() {
+            new()
+            {
                 Id = 5,
                 Nome = "Fullmetal Alchemis",
                 CategoriaId = 1,
@@ -82,7 +87,8 @@ public class HomeController : Controller
                 Thumbnail = "/img/5.jpg",
                 Foto = "/img/5.jpg"
             },
-             new() {
+            new()
+            {
                 Id = 6,
                 Nome = "Haikyuu ",
                 CategoriaId = 2,
@@ -93,21 +99,30 @@ public class HomeController : Controller
                 Thumbnail = "/img/6.jpg",
                 Foto = "/img/6.jpg"
             }
-        ];
+        };
+    }
 
+    public IActionResult Index()
+    {
+        ViewData["Mensagem"] = "Olá, mundo!";
         return View(postagens);
     }
 
     public IActionResult Postagem(int id)
     {
-        return View();
+        var postagem = postagens
+            .Where(p => p.Id == id)
+            .SingleOrDefault();
+        if (postagem == null)
+            return NotFound();
+        return View(postagem);
     }
 
     public IActionResult Privacy()
     {
         return View();
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

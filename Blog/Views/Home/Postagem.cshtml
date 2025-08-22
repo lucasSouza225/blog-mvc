@@ -1,4 +1,21 @@
+@model Postagem
 @{
     ViewData["Title"] = "Postagem";
 }
+<div class="container-sm d-flex justify-content-center mt-4 ">
+  <div class="card mb-3" style="max-width: 800px; ">
+    <img src="@Model.Foto" class="card-img-top img-fluid" alt="Foto de @Model.Nome">
+    <div class="card-body">
+      <h5 class="card-title">@Model.Nome</h5>
+      <p class="card-text">@Model.Descricao</p>
+      <p>@Html.Raw(Model.Texto)</p>
+      <p>
+        <small class="text-body-secondary">
+          @Model.DataPostagem.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("pt-BR"))
+        </small>
+      </p>
+    </div>
+  </div>
+</div>
+
 
