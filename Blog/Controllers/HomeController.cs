@@ -10,10 +10,21 @@ public class HomeController : Controller
 
     // Tornei a lista um campo da classe para ser usada em ambos os métodos
     private readonly List<Postagem> postagens;
+    private List<Categoria> categorias;
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
+
+        categorias = [
+            new() { Id = 1, Nome = "Lançamento",  }, 
+            new() { Id = 2, Nome = "Anime", }, 
+            new() { Id = 3, Nome = "Filmes",  }, 
+            new() { Id = 4, Nome = "Manga", }, 
+            new() { Id = 5, Nome = "Ova",}
+        ];
+
+        
 
         Categoria anime = new();
         anime.Id = 1;
@@ -115,6 +126,7 @@ public class HomeController : Controller
             .SingleOrDefault();
         if (postagem == null)
             return NotFound();
+            ViewData["Categorias"] = categorias;
         return View(postagem);
     }
 

@@ -1,21 +1,62 @@
 @model Postagem
 @{
     ViewData["Title"] = "Postagem";
+    var categorias = (List<Categoria>)ViewData["Categorias"];
 }
+
 <div class="container-sm d-flex justify-content-center mt-4 ">
-  <div class="card mb-3" style="max-width: 800px; ">
-    <img src="@Model.Foto" class="card-img-top img-fluid" alt="Foto de @Model.Nome">
-    <div class="card-body">
-      <h5 class="card-title">@Model.Nome</h5>
-      <p class="card-text">@Model.Descricao</p>
-      <p>@Html.Raw(Model.Texto)</p>
-      <p>
+<div class="card mb-3"  style="max-width: 600px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="@Model.Foto" class="card-img-top img-fluid" alt="Foto de @Model.Nome">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+         <h5 class="card-title">@Model.Nome</h5>
+        <p class="card-text">@Model.Descricao</p>
+        <p>
         <small class="text-body-secondary">
           @Model.DataPostagem.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("pt-BR"))
         </small>
       </p>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="col-md-4 mx-3  ">
+  @* Formulário de Pesqusa *@
+  <div class="card mb-4">
+    <div class="card-header">Pesquisar</div>
+    <div class="card-body">
+      <form>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Pesquisar por...">
+          <button class="btn btn-outline-primary" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="card mb-4">
+      <div class="card-header">Categorias
+        <div class="card-body">
+          <ul class="list-unstyled ">
+             @foreach (Categoria categoria in categorias)
+                        {
+                            <li class="d-grid gap-2">
+                                <a href="#" class="text-decoration-none mb-2 btn btn-outline-primary">
+                                    @categoria.Nome
+                                </a>
+                            </li>
+                        }
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
 
